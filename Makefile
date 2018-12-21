@@ -6,7 +6,7 @@ LIBRARIES :=
 
 all: build
 
-build: counter
+build: counter fibonacci
 
 counter.o:counter.cpp
 	$(EXEC) $(CXX) $(INCLUDES) $(CXXFLAGS) -o $@ -c $^ $(LIBRARIES)
@@ -14,10 +14,17 @@ counter.o:counter.cpp
 counter: counter.o
 	$(EXEC) $(CXX) $(LDFLAGS) -o $@ $+ $(LIBRARIES)
 
+fibonacci.o:fibonacci.cpp
+	$(EXEC) $(CXX) $(INCLUDES) $(CXXFLAGS) -o $@ -c $^ $(LIBRARIES)
+
+fibonacci: fibonacci.o
+	$(EXEC) $(CXX) $(LDFLAGS) -o $@ $+ $(LIBRARIES)
+
 run: build
 	$(EXEC) ./counter
+	$(EXEC) ./fibonacci
 
 clean:
-	rm -f counter counter.o
+	rm -f counter counter.o fibonacci fibonacci.o
 
 clobber: clean
